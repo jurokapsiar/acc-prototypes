@@ -1,8 +1,12 @@
 var appsMenuItems = document.querySelectorAll(
-  "#appmenu > li > [role='menuitem']"
+  window.useChild
+    ? "#appmenu > li > [role='menuitem']"
+    : "#appmenu > li[role='menuitem']"
 );
 var subMenuItems = document.querySelectorAll(
-  "#appmenu > li li [role='menuitem']"
+  window.useChild
+    ? "#appmenu > li li [role='menuitem']"
+    :  "#appmenu > li li[role='menuitem']"
 );
 var keys = {
   tab: 9,
@@ -78,26 +82,28 @@ Array.prototype.forEach.call(appsMenuItems, function(el, i) {
       case keys.left:
         gotoIndex(currentIndex - 1);
         break;
-      case keys.tab:
-        if (event.shiftKey) {
-          gotoIndex(currentIndex - 1);
-        } else {
-          gotoIndex(currentIndex + 1);
-        }
-        break;
+      // case keys.tab:
+      //   if (event.shiftKey) {
+      //     gotoIndex(currentIndex - 1);
+      //   } else {
+      //     gotoIndex(currentIndex + 1);
+      //   }
+      //   break;
       case keys.enter:
       case keys.down:
       case keys.space:
         this.click();
         subindex = 0;
-        var submenu = this.parentElement.querySelector('[role="menu"]');
+        var element = window.useChild ? this.parentElement : this;
+        var submenu = element.querySelector('[role="menu"]');
         if (submenu) {
           gotoSubIndex(submenu, 0);
         }
         break;
       case keys.up:
         this.click();
-        var submenu = this.parentElement.querySelector('[role="menu"]');
+        var element = window.useChild ? this.parentElement : this;
+        var submenu = element.querySelector('[role="menu"]');
         if (submenu) {
           subindex = submenu.querySelectorAll("[role='menuitem']").length - 1;
           gotoSubIndex(submenu, subindex);

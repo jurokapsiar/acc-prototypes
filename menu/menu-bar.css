@@ -40,7 +40,7 @@
 	color: #fff;
 	background-color: #036;
 }
-#appmenu [aria-haspopup="true"] + [role="menu"] {
+.appmenu-no-child [aria-haspopup="true"] > [role="menu"] {
 	display: none;
 	position:absolute;
 	left:0;
@@ -51,6 +51,21 @@
 	background-color: #036;
 	text-align: left;
 }
-#appmenu [aria-haspopup="true"][aria-expanded="true"] + [role="menu"] {
+.appmenu-no-child [aria-haspopup="true"][aria-expanded="true"] > [role="menu"] {
+	display:block;
+}
+
+.appmenu-child [aria-haspopup="true"] + [role="menu"] {
+	display: none;
+	position:absolute;
+	left:0;
+	right:0;
+	top:100%;
+	padding:0;
+	margin:0;
+	background-color: #036;
+	text-align: left;
+}
+.appmenu-child [aria-haspopup="true"][aria-expanded="true"] + [role="menu"] {
 	display:block;
 }
